@@ -3,6 +3,13 @@
 <br/>
 <br/>
 
+## Ground Rules
+- 하루에 적어도 3문제 이상 풀기
+- 되도록 혼자 풀 수 있도록 고민하기
+- 클린 아키텍처 및 클린 코드를 생각하며 코드 
+
+<br/>
+
 ## Backjoon Hub
 ### 1. Backjoon Hub 사용 방법
 - Chrome Extention 설치
