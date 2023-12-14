@@ -12,7 +12,7 @@ int main() {
     cin.tie(NULL);
     cout.tie(NULL);
 
-    int cardNumber, card, checkNumber, check;
+    int cardNumber, card;
     
     cin >> cardNumber;
     for (int i = 0; i < cardNumber; i++) {
@@ -20,39 +20,21 @@ int main() {
         cards.push_back(card);
     }
     
-    cin >> checkNumber;
-    for (int i = 0; i < checkNumber; i++) {
-        cin >> check;
-        checking.push_back(check);
-    }
-    
     isHave();
 }
 
 void isHave() {
-    vector<int> results(checking.size(), 0);
+    int checkNumber, check;
     sort(cards.begin(), cards.end());
 
-    for (int i = 0; i < checking.size(); i++) {
-        int right = cards.size() - 1;
-        int left = 0;
-
-        while (left <= right) {
-            int mid = (left + right) / 2;
-            if (cards[mid] == checking[i]) {
-                results[i] = 1;
-                break;
-            }
-            if (cards[mid] > checking[i]) {
-                right = mid - 1;
-            }
-            else {
-                left = mid + 1;
-            }
+    cin >> checkNumber;
+    for (int i = 0; i < checkNumber; i++) {
+        cin >> check;
+        if (binary_search(cards.begin(), cards.end(), check)) {
+            cout << 1 << ' ';
         }
-    }
-
-    for (int i = 0; i < checking.size(); i++) {
-        cout << results[i] << " ";
+        else {
+            cout << 0 << ' ';
+        }
     }
 }
