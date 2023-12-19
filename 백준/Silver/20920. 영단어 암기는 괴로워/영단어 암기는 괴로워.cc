@@ -1,40 +1,52 @@
 #include <iostream>
-#include <algorithm>
-#include <stdio.h>
-#include <string>
-#include <vector>
 #include <map>
+#include <vector>
+#include <algorithm>
+#include <string>
 using namespace std;
-int n, m;
-vector <string> voca;
-map<string, int> mp;
-string v;
-bool compare(string a, string b) {
-    if (a.size() == b.size() && mp[a] == mp[b]) {
-        return a < b;
-    }
-    else if (mp[a] == mp[b]) {
-        return a.size() > b.size();
-    }
-    return mp[a] > mp[b];
-}
+
+map<string, int> words;
+vector<string> voca;
+void makeVoca();
+bool compare(string a, string b);
 
 int main() {
-    
-    cin.tie(nullptr); ios::sync_with_stdio(false);
-    cin >> n >> m;
-    for (int i = 0; i < n; i++) {
-        cin >> v;
-        if (v.size() < m) continue;
-        if (mp.find(v)==mp.end()) {
-            mp[v] = 0;
-            voca.push_back(v);
+    ios::sync_with_stdio(false);
+    cin.tie(NULL);
+    cout.tie(NULL);
+
+    int wordNumber, wordLength;
+    cin >> wordNumber >> wordLength;
+
+    for (int i = 0; i < wordNumber; i++) {
+        string word;
+        cin >> word;
+
+        if (word.size() >= wordLength) {
+            if (words.find(word) == words.end()) {
+                words[word] = 0;
+                voca.push_back(word);
+            }
         }
-        mp[v]++;
+        words[word]++;
     }
+    makeVoca();
+}
+
+void makeVoca() {
     sort(voca.begin(), voca.end(), compare);
 
     for (int i = 0; i < voca.size(); i++) {
-        cout << voca[i] << '\n';
+        cout << voca[i] << "\n";
     }
+}
+
+bool compare(string a, string b) {
+    if (words[a] == words[b]) {
+        if (a.size() == b.size()) {
+            return a < b;
+        }
+        return a.size() > b.size();
+    }
+    return words[a] > words[b];
 }
