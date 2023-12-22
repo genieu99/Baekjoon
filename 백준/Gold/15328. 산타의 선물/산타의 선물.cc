@@ -1,37 +1,62 @@
-#include<bits/stdc++.h>
+#include <iostream>
+#include <algorithm>
+#include <cmath>
 using namespace std;
-typedef __float128 real_t;
 
-__float128 mysqrt(__float128 x)
-{
-    if(x==0) return 0;
+int startX, startY, startZ;
+__float128 calculateDistance(int X, int Y, int Z);
+__float128 getSqrtByNewtonRaphson(__float128 x);
+void printSantaPossible(__float128 sum, int time);
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(NULL);
+    cout.tie(NULL);
+
+    int testcase;
+    cin >> testcase;
+
+    for (int i = 0; i < testcase; i++) {
+        int time;
+        startX = 0, startY = 0, startZ = 0;
+        __float128 sum = 0;
+        cin >> time;
+
+        for (int j = 0; j < 4; j++) {
+            int X, Y, Z;
+            cin >> X >> Y >> Z;
+            sum += calculateDistance(X, Y, Z);
+            startX = X, startY = Y, startZ = Z;
+        }
+        printSantaPossible(sum, time);
+    }
+}
+
+__float128 calculateDistance(int X, int Y, int Z) {
+    __float128 pytha = pow(X - startX, 2) + pow(Y - startY, 2) + pow(Z - startZ, 2);
+    return getSqrtByNewtonRaphson(pytha);
+}
+
+__float128 getSqrtByNewtonRaphson(__float128 x) {
     __float128 y = 1, gy = 0;
-    do
-    {
-        __float128 t = (y+(x/y))/2;
+
+    if (x == 0) {
+        return 0;
+    }
+
+    do {
+        __float128 t = (y + (x / y)) / 2;
         gy = y;
         y = t;
-    }while(y!=gy);
+    } while (y != gy);
     return y;
 }
 
-
-int main()
-{
-    int N; scanf("%d", &N);
-    for(int i=0; i<N; ++i)
-    {
-        int px = 0, py = 0, pz = 0;
-        real_t ans = 0;
-        int x; scanf("%d", &x);
-        for(int j=0; j<4; ++j)
-        {
-            int a, b, c; scanf("%d%d%d",&a,&b,&c);
-            ans += mysqrt(real_t((px-a)*(px-a)+(py-b)*(py-b)+(pz-c)*(pz-c)));
-            px = a, py = b, pz = c;
-        }
-        if(ans <= x) puts("YES");
-        else puts("NO");
+void printSantaPossible(__float128 sum, int time) {
+    if (sum > time) {
+        cout << "NO\n";
     }
-    return 0;
+    else {
+        cout << "YES\n";
+    }
 }
